@@ -1,0 +1,12 @@
+{
+    "name": "julio/data_structure",
+    "description": "All data structures",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Julio\\DataStructure\\": "src/"
+        }
+    },
+    "require": {}
+}
