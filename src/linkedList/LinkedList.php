@@ -36,7 +36,7 @@ class LinkedList {
         if ($index === 0) {
             $this->head = $current->next;
         } else {
-            /** @var Node */ $previous = $this->getElementAt($index--);
+            /** @var Node */ $previous = $this->getElementAt($index - 1);
             /** @var Node */ $current = $previous->next;
 
             $previous->next = $current->next;
@@ -44,6 +44,12 @@ class LinkedList {
 
         $this->count--;
         return $current->element;
+    }
+
+    /** remove element in list */
+    public function remove($element) {
+        $index = $this->indexOf($element);
+        return $this->removeAt($index);
     }
 
     /** get element of specified index */
@@ -59,6 +65,45 @@ class LinkedList {
 
     /** insert element in specified index */
     public function insert($element, $index) {
-        // todo
+        if (!($index >= 0 && $index <= $this->count)) return false;
+
+        $node = new Node($element);
+        if ($index === 0) {
+            $current = $this->head;
+            $node->next = $current;
+            $this->head = $node;
+        } else {
+            $previous = $this->getElementAt($index - 1);
+            $current = $previous->next;
+            $node->next = $current;
+            $previous->next = $node;            
+        }
+
+        $this->count++;
+        return true;
+    }
+
+    /** Get the index of element in list */
+    public function indexOf($element) {
+        /** @var Node */
+        $current = $this->head;
+        for ($i=0; $i < $this->count && $current != null; $i++) { 
+            if (defaultEquals($element, $current->element)) return $i; 
+            
+            $current = $current->next;
+        }
+        return null;
+    }
+
+    public function size() {
+        return $this->count;
+    }
+
+    public function isEmpty() {
+        return $this->size() === 0;
+    }
+
+    public function getHead() {
+        return $this->head;
     }
 }
