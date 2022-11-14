@@ -5,7 +5,9 @@ use Julio\DataStructure\Complementary\Node;
 use function Julio\DataStructure\Complementary\defaultEquals;
 
 class LinkedList {
-    private $head, $count;
+    /** @var Node */
+    private $head;
+    private $count;
 
     public function __construct() {
         $this->head = null;
@@ -93,6 +95,19 @@ class LinkedList {
             $current = $current->next;
         }
         return null;
+    }
+
+    public function __toString() {
+        if ($this->head->element == null) return '';
+
+        $list = "START -> |{$this->head->element}| ->";
+        for ($i=1; $i < $this->size(); $i++) {
+            $element = $this->getElementAt($i); 
+            $list .= " |$i|$element| ->";
+        }
+        $list .= " END";
+
+        return $list;
     }
 
     public function size() {
