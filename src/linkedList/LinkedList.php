@@ -2,7 +2,6 @@
 namespace Julio\DataStructure\linkedList;
 
 use Julio\DataStructure\Complementary\Node;
-use function Julio\DataStructure\Complementary\defaultEquals;
 
 class LinkedList {
     /** @var Node */
@@ -19,11 +18,12 @@ class LinkedList {
         foreach ($elements as $element) {
             $node = new Node($element);
             
-            if ($this->head == null) $this->head = $node;
-
-            $current = $this->head;
-            while ($current->next != null) $current = $current->next;            
-            $current->next = $node;
+            if ($this->head == null) {
+                $this->head = $node;
+            } else {
+                $lastItem = $this->getElementAt($this->size()-1);
+                $lastItem->next = $node;
+            }
 
             $this->count++;
         }
@@ -90,7 +90,7 @@ class LinkedList {
         /** @var Node */
         $current = $this->head;
         for ($i=0; $i < $this->count && $current != null; $i++) { 
-            if (defaultEquals($element, $current->element)) return $i; 
+            if ($element === $current->element) return $i; 
             
             $current = $current->next;
         }
