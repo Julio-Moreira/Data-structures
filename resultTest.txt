@@ -1,1 +1,10 @@
+Doubly Linked List (Julio\DataStructure\test\linkedList\DoublyLinkedList)
+ [x] If doubly node is working
+
 Linked List (Julio\DataStructure\test\linkedList\LinkedList)
+ [x] If node is working
+ [x] Push one item to list
+ [x] Push many items to list
+ [x] Insert element in list
+ [x] Remove items
+
