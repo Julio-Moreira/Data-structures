@@ -1,5 +1,8 @@
 Doubly Linked List (Julio\DataStructure\test\linkedList\DoublyLinkedList)
  [x] If doubly node is working
+ [x] Insert in head
+ [x] Insert in tail
+ [x] Insert many items
 
 Linked List (Julio\DataStructure\test\linkedList\LinkedList)
  [x] If node is working
