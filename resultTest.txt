@@ -3,6 +3,9 @@ Doubly Linked List (Julio\DataStructure\test\linkedList\DoublyLinkedList)
  [x] Insert in head
  [x] Insert in tail
  [x] Insert many items
+ [x] Remove head
+ [x] Remove tail
+ [x] Remove any position
 
 Linked List (Julio\DataStructure\test\linkedList\LinkedList)
  [x] If node is working

@@ -63,4 +63,47 @@ class DoublyLinkedListTest extends TestCase {
         self::assertSame(1, $tail->element);
         self::assertSame(2, $tail->prev->element);
     }
+
+    public function testRemoveHead() {
+        $doublyLinkedList = new DoublyLinkedList();
+        $doublyLinkedList->insert(0, 0);
+        $doublyLinkedList->insert(1, 1);
+        $doublyLinkedList->insert(2, 2);
+        $doublyLinkedList->insert(3, 3);
+        $doublyLinkedList->insert(4, 4);
+        $doublyLinkedList->removeAt(0);
+
+        self::assertSame(1, $doublyLinkedList->getHead()->element);
+    }
+
+    public function testRemoveTail() {
+        $doublyLinkedList = new DoublyLinkedList();
+        $doublyLinkedList->insert(0, 0);
+        $doublyLinkedList->insert(1, 1);
+        $doublyLinkedList->insert(2, 2);
+        $doublyLinkedList->insert(3, 3);
+        $doublyLinkedList->insert(4, 4);
+        $doublyLinkedList->removeAt(4);
+
+        self::assertNull($doublyLinkedList->indexOf(4));
+        self::assertNull($doublyLinkedList->getElementAt(4));
+        self::assertSame(3, $doublyLinkedList->getTail()->element);
+    }
+
+    public function testRemoveAnyPosition() {
+        $doublyLinkedList = new DoublyLinkedList();
+        $doublyLinkedList->insert(0, 0);
+        $doublyLinkedList->insert(1, 1);
+        $doublyLinkedList->insert(2, 2);
+        $doublyLinkedList->insert(3, 3);
+        $doublyLinkedList->insert(4, 4);
+        
+        $doublyLinkedList->removeAt(1);
+        $doublyLinkedList->removeAt(2);
+
+        self::assertSame(2, $doublyLinkedList->getHead()->next->element);
+        self::assertSame(4, $doublyLinkedList->getTail()->element);
+        self::assertNull($doublyLinkedList->indexOf(3));
+        self::assertNull($doublyLinkedList->indexOf(1));
+    }
 }

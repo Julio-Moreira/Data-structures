@@ -60,7 +60,8 @@ class LinkedList {
 
         /** @var Node $node */
         $node = $this->head;
-        for ($i=0; $i < $index && $node != null; $i++) $node = $node->next;
+        for ($i=0; $i < $index && $node != null; $i++) 
+            $node = $node->next;
 
         return $node;
     }

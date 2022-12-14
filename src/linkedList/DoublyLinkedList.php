@@ -9,19 +9,21 @@ class DoublyLinkedList extends LinkedList {
     private ?DoublyNode $head = null;
     private int $count = 0;
 
+    // public function push($element) {
+    //     # code...
+    // }
+
     /** insert any element in specified index */
     public function insert($element, $index): bool {
         if (!($index >= 0 && $index <= $this->count)) return false;
         $node = new DoublyNode($element);
         
-        // if index is zero
-        if ($index == 0) $this->indexIsZero($node);
-
-        // if index is the tail
-        else if ($index == $this->count) $this->indexIsTail($node);
-        
-        // if index is in any position
-        else $this->indexIsInAnyPosition($node, $index);
+        if ($index == 0) 
+            $this->indexIsZero($node);
+        else if ($index == $this->count) 
+            $this->indexIsTail($node);
+        else 
+            $this->indexIsInAnyPosition($node, $index);
 
         $this->count++;
         return true;
@@ -60,6 +62,73 @@ class DoublyLinkedList extends LinkedList {
         $previous->next = $node;
         $current->prev = $node;
         $node->prev = $previous;
+    }
+
+    /** remove any element in index required */
+    public function removeAt($index): bool {
+        if (!($index >= 0 && $index < $this->count)) return false;
+        $current = $this->head;
+
+        if ($index === 0) 
+            $this->removedIndexIsHead();
+        else if ($index === $this->count-1) 
+            $this->removedIndexIsTail();
+        else 
+            $this->removedIndexIsInAnyPosition($index);
+
+        $this->count--;
+        return $current->element;
+    }
+
+    /** Remove the head */
+    private function removedIndexIsHead() {
+        $this->head = $this->head->next;
+
+        if ($this->count === 1) 
+            $this->tail = null;
+        else
+            $this->head->prev = null;
+    }
+
+    /** Remove the tail */
+    private function removedIndexIsTail() {
+        $current = $this->tail;
+        $this->tail = $current->prev;
+        $this->tail->next = null;
+    }
+
+    /** Remove element in specified index */
+    private function removedIndexIsInAnyPosition($index) {
+        /** @var DoublyNode */
+        $current = $this->getElementAt($index);
+        $prev = $current->prev;
+
+        $prev->next = $current->next;
+        $current->next->prev = $prev;
+    }
+
+    /** get element of specified index */
+    public function getElementAt($index) {
+        if (!($index >= 0 && $index <= $this->count)) return null;
+
+        /** @var Node $node */
+        $node = $this->head;
+        for ($i=0; $i < $index && $node != null; $i++) 
+            $node = $node->next;
+
+        return $node;
+    }
+
+    public function __toString() {
+        if ($this->head == null) return '';
+        $res = '';
+        $current = $this->head;
+
+        while ($current->next != null) 
+            $res .= "{$current->element} -> ";
+
+        $res .= " END";
+        return $res;
     }
 
     /** get the size of doubly linked list */
