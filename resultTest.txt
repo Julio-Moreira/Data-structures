@@ -6,6 +6,8 @@ Doubly Linked List (Julio\DataStructure\test\linkedList\DoublyLinkedList)
  [x] Remove head
  [x] Remove tail
  [x] Remove any position
+ [x] Push one item
+ [x] Push many items
 
 Linked List (Julio\DataStructure\test\linkedList\LinkedList)
  [x] If node is working

@@ -5,16 +5,38 @@ use Julio\DataStructure\Complementary\DoublyNode;
 use Julio\DataStructure\linkedList\LinkedList;
 
 class DoublyLinkedList extends LinkedList {
-    private ?DoublyNode $tail = null;
-    private ?DoublyNode $head = null;
+    private ?DoublyNode $tail, $head = null;
     private int $count = 0;
 
-    // public function push($element) {
-    //     # code...
-    // }
+    /** push many items in the list */
+    public function push(...$elements): void {
+        foreach ($elements as $element) {
+            $node = new DoublyNode($element);
+
+            if ($this->head == null)
+                $this->pushNodeIsTheHead($node);                
+            else
+                $this->pushNodeIsTheTail($node);
+            
+            $this->count++;
+        }
+    }
+
+    /** push the node in head */
+    public function pushNodeIsTheHead(DoublyNode $node): void {
+        $this->head = $node;
+        $this->tail = $node;
+    }
+
+    /** push the node in tail */
+    public function pushNodeIsTheTail(DoublyNode $node): void {
+        $this->tail->next = $node;
+        $node->prev = $this->tail;
+        $this->tail = $node;
+    }
 
     /** insert any element in specified index */
-    public function insert($element, $index): bool {
+    public function insert(mixed $element, mixed $index): bool {
         if (!($index >= 0 && $index <= $this->count)) return false;
         $node = new DoublyNode($element);
         
@@ -53,7 +75,7 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** If the index is in any position put the node in specified position */
-    public function indexIsInAnyPosition(DoublyNode $node, $index): void {
+    public function indexIsInAnyPosition(DoublyNode $node, mixed $index): void {
         $previous = $this->getElementAt($index-1);
         /** @var DoublyNode */ 
         $current = $previous->next;
@@ -65,7 +87,7 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** remove any element in index required */
-    public function removeAt($index): bool {
+    public function removeAt(mixed $index): bool {
         if (!($index >= 0 && $index < $this->count)) return false;
         $current = $this->head;
 
@@ -81,7 +103,7 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** Remove the head */
-    private function removedIndexIsHead() {
+    private function removedIndexIsHead(): void {
         $this->head = $this->head->next;
 
         if ($this->count === 1) 
@@ -91,14 +113,14 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** Remove the tail */
-    private function removedIndexIsTail() {
+    private function removedIndexIsTail(): void {
         $current = $this->tail;
         $this->tail = $current->prev;
         $this->tail->next = null;
     }
 
     /** Remove element in specified index */
-    private function removedIndexIsInAnyPosition($index) {
+    private function removedIndexIsInAnyPosition(mixed $index): void {
         /** @var DoublyNode */
         $current = $this->getElementAt($index);
         $prev = $current->prev;
@@ -108,7 +130,7 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** get element of specified index */
-    public function getElementAt($index) {
+    public function getElementAt(mixed $index): ?DoublyNode {
         if (!($index >= 0 && $index <= $this->count)) return null;
 
         /** @var Node $node */
@@ -132,17 +154,17 @@ class DoublyLinkedList extends LinkedList {
     }
 
     /** get the size of doubly linked list */
-    public function size() {
+    public function size(): int {
         return $this->count;
     }
 
     /** get head of doubly linked list */
-    public function getHead() {
+    public function getHead(): ?DoublyNode {
         return $this->head;
     }
 
     /** get tail of doubly linked list */
-    public function getTail() {
+    public function getTail(): ?DoublyNode {
         return $this->tail;
     }
 }

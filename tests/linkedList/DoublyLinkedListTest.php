@@ -106,4 +106,31 @@ class DoublyLinkedListTest extends TestCase {
         self::assertNull($doublyLinkedList->indexOf(3));
         self::assertNull($doublyLinkedList->indexOf(1));
     }
+
+    public function testPushOneItem() {
+        $doublyLinkedList = new DoublyLinkedList();
+        $doublyLinkedList->push(1);
+
+        self::assertSame(1, $doublyLinkedList->getHead()->element);
+        self::assertSame(1, $doublyLinkedList->size());
+    }
+
+    public function testPushManyItems() {
+        $doublyLinkedList = new DoublyLinkedList();
+        $doublyLinkedList->push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        
+        self::assertSame(10, $doublyLinkedList->size());
+
+        self::assertSame(1, $doublyLinkedList->getHead()->element);
+        self::assertSame(2, $doublyLinkedList->getHead()->next->element);
+        self::assertNull($doublyLinkedList->getHead()->prev);
+
+        self::assertSame(10, $doublyLinkedList->getTail()->element);
+        self::assertSame(9, $doublyLinkedList->getTail()->prev->element);
+        self::assertNull($doublyLinkedList->getTail()->next);
+
+        self::assertSame(6, $doublyLinkedList->getElementAt(5)->element);
+        self::assertSame(8, $doublyLinkedList->getElementAt(5)->next->next->next->prev->element);
+        self::assertSame(5, $doublyLinkedList->getElementAt(5)->prev->element);
+    }
 }
