@@ -4,9 +4,8 @@ namespace Julio\DataStructure\linkedList;
 use Julio\DataStructure\Complementary\Node;
 
 class CircularLinkedList extends LinkedList {
-    public function __construct() {
-        parent::__construct();
-    }
+    private ?Node $head = null;
+    private int $count = 0;
 
     /** push values in list */
     public function push(...$elements): void {
@@ -16,7 +15,7 @@ class CircularLinkedList extends LinkedList {
             if ($this->head == null) {
                 $this->head = $node;
             } else {
-                $lastItem = $this->getElementAt($this->size()-1);
+                $lastItem = $this->getLastItem();
                 $lastItem->next = $node;
             }
 
@@ -50,7 +49,7 @@ class CircularLinkedList extends LinkedList {
             $node->next = $current;
         } else {
             $node->next = $current;
-            $current = $this->getElementAt($this->size()-1);
+            $current = $this->getLastItem();
             $this->head = $node;
             $current->next = $this->head;
         }
@@ -78,11 +77,48 @@ class CircularLinkedList extends LinkedList {
             $this->head = null;
         } else {
             $removed = $this->head;
-            $current = $this->getElementAt($this->size()-1);
+            $current = $this->getLastItem();
 
             $this->head = $this->head->next.
             $current->next = $this->head;
             $current = $removed;
         }
+    }
+
+    /** Get Last item of list */
+    public function getLastItem(): ?Node {
+        return $this->getElementAt($this->size() - 1);
+    }
+
+    /** get element of specified index */
+    public function getElementAt($index) {
+        if (!($index >= 0 && $index <= $this->count)) return null;
+
+        /** @var Node $node */
+        $node = $this->head;
+        for ($i=0; $i < $index && $node != null; $i++) 
+            $node = $node->next;
+
+        return $node;
+    }
+
+    public function size() {
+        return $this->count;
+    }
+
+    public function getHead() {
+        return $this->head;
+    }
+
+    /** Get the index of element in list */
+    public function indexOf($element) {
+        /** @var Node */
+        $current = $this->head;
+        for ($i=0; $i < $this->count && $current != null; $i++) { 
+            if ($element === $current->element) return $i; 
+            
+            $current = $current->next;
+        }
+        return null;
     }
 }
