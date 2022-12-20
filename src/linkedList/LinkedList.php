@@ -4,17 +4,11 @@ namespace Julio\DataStructure\linkedList;
 use Julio\DataStructure\Complementary\Node;
 
 class LinkedList {
-    /** @var Node */
-    private $head;
-    private $count;
-
-    public function __construct() {
-        $this->head = null;
-        $this->count = 0;
-    }
+    private ?Node $head = null;
+    private int $count = 0;
 
     /** push values in list */
-    public function push(...$elements) {
+    public function push(array|int|string ...$elements): void {
         foreach ($elements as $element) {
             $node = new Node($element);
             
@@ -30,7 +24,7 @@ class LinkedList {
     }
 
     /** remove specified index from list */
-    public function removeAt($index) {
+    public function removeAt(mixed $index): mixed {
         if (!($index >= 0 && $index < $this->count)) return null;
         /** @var Node $current */
         $current = $this->head;
@@ -49,13 +43,13 @@ class LinkedList {
     }
 
     /** remove element in list */
-    public function remove($element) {
+    public function remove(mixed $element): mixed {
         $index = $this->indexOf($element);
         return $this->removeAt($index);
     }
 
     /** get element of specified index */
-    public function getElementAt($index) {
+    public function getElementAt(mixed $index): mixed {
         if (!($index >= 0 && $index <= $this->count)) return null;
 
         /** @var Node $node */
@@ -67,7 +61,7 @@ class LinkedList {
     }
 
     /** insert element in specified index */
-    public function insert($element, $index) {
+    public function insert(mixed $element, mixed $index): bool {
         if (!($index >= 0 && $index <= $this->count)) return false;
 
         $node = new Node($element);
@@ -87,7 +81,7 @@ class LinkedList {
     }
 
     /** Get the index of element in list */
-    public function indexOf($element) {
+    public function indexOf(mixed $element): ?int {
         /** @var Node */
         $current = $this->head;
         for ($i=0; $i < $this->count && $current != null; $i++) { 
@@ -111,15 +105,18 @@ class LinkedList {
         return $list;
     }
 
-    public function size() {
+    /** get the size of linked list */
+    public function size(): int {
         return $this->count;
     }
 
-    public function isEmpty() {
+    /** show if the list is empty */
+    public function isEmpty(): bool {
         return $this->size() === 0;
     }
 
-    public function getHead() {
+    /** get the head of list */
+    public function getHead(): mixed {
         return $this->head;
     }
 }
