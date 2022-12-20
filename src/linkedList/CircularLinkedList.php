@@ -8,7 +8,7 @@ class CircularLinkedList extends LinkedList {
     private int $count = 0;
 
     /** push values in list */
-    public function push(...$elements): void {
+    public function push(array|int|string ...$elements): void {
         foreach ($elements as $element) {
             $node = new Node($element);
             
@@ -91,7 +91,7 @@ class CircularLinkedList extends LinkedList {
     }
 
     /** get element of specified index */
-    public function getElementAt($index) {
+    public function getElementAt(mixed $index): ?Node {
         if (!($index >= 0 && $index <= $this->count)) return null;
 
         /** @var Node $node */
@@ -102,16 +102,16 @@ class CircularLinkedList extends LinkedList {
         return $node;
     }
 
-    public function size() {
+    public function size(): int {
         return $this->count;
     }
 
-    public function getHead() {
+    public function getHead(): ?Node {
         return $this->head;
     }
 
     /** Get the index of element in list */
-    public function indexOf($element) {
+    public function indexOf(mixed $element): ?int {
         /** @var Node */
         $current = $this->head;
         for ($i=0; $i < $this->count && $current != null; $i++) { 

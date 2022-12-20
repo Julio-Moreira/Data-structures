@@ -9,7 +9,7 @@ class DoublyLinkedList extends LinkedList {
     private int $count = 0;
 
     /** push many items in the list */
-    public function push(...$elements): void {
+    public function push(array|int|string ...$elements): void {
         foreach ($elements as $element) {
             $node = new DoublyNode($element);
 
